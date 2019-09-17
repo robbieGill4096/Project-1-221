@@ -146,7 +146,15 @@ public class GridMonitor implements GridMonitorInterface {
 	}
 
 	public double[][] getSurroundingSumGrid() {
-		return this.gridOfAverageAdjacentPositions;
+		for (int r = 0; r < NUMBER_OF_ROWS; r++) {
+			System.out.println();
+			for (int c = 0; c < NUMBER_OF_COLUMNS; c++) {
+		System.out.print(gridOfAdjacentPositions[r][c]);}
+			}
+		System.out.println();
+		System.out.println(filename);
+		
+		return this.gridOfAdjacentPositions;
 	}
 
 	/**
@@ -196,19 +204,32 @@ public class GridMonitor implements GridMonitorInterface {
 				double safeRangeHigh = avgVal + deltaVal;
 				double safeRangeLow = avgVal - deltaVal;
 
-				if (baseGrid[row][col] < safeRangeLow) {
+				if (Math.abs(baseGrid[row][col]) < Math.abs(safeRangeLow)) {
 					booleanDangerGrid[row][col] = true;
 				}
-				if (baseGrid[row][col] > safeRangeHigh) {
+				if (Math.abs(baseGrid[row][col]) > Math.abs(safeRangeHigh)) {
 					booleanDangerGrid[row][col] = true;
-				} else {
-					booleanDangerGrid[row][col] = false;
-				}
-				// this.booleanDangerGrid[row][col] =
+					
+				} 
+				
+				else if((Math.abs(baseGrid[row][col]) < Math.abs(safeRangeHigh)) && (Math.abs(baseGrid[row][col]) > Math.abs(safeRangeLow)) ) {
+					booleanDangerGrid[row][col] = false;}
+				
 
 			}
+			
+			// this.booleanDangerGrid[row][col] =
 		}
-		// loop through and
+		/*for (int r = 0; r < NUMBER_OF_ROWS; r++) {
+			System.out.println();
+			for (int c = 0; c < NUMBER_OF_COLUMNS; c++) {
+		System.out.print(booleanDangerGrid[r][c]);}
+			}
+		System.out.println();
+		System.out.println(filename);
+		// this.booleanDangerGrid[row][col] =
+		// loop through and*/
+		
 		return this.booleanDangerGrid;
 
 	}
