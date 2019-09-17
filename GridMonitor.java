@@ -2,6 +2,7 @@ import java.io.EOFException;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.lang.Math;
 
 public class GridMonitor implements GridMonitorInterface {
 
@@ -47,7 +48,7 @@ public class GridMonitor implements GridMonitorInterface {
 			double[] doubleGridValAndDim = new double[strGridValAndDim.length];
 			// covert the string array of values to an int array
 			for (int i = 0; i != strGridValAndDim.length; i++) {
-				doubleGridValAndDim[i] = Double.parseDouble(strGridValAndDim[i]);
+				doubleGridValAndDim[i] = Math.abs(Double.parseDouble(strGridValAndDim[i]));
 
 			}
 			/*
@@ -94,22 +95,22 @@ public class GridMonitor implements GridMonitorInterface {
 					double bottomVal;
 					try {
 						topVal = baseGrid[row - 1][col];
-					} catch (Exception e) {
+					} catch (Exception IndexOutOfBoundsException) {
 						topVal = baseGrid[row][col];
 					}
 					try {
 						leftVal = baseGrid[row][col - 1];
-					} catch (Exception e) {
+					} catch (Exception IndexOutOfBoundsException) {
 						leftVal = baseGrid[row][col];
 					}
 					try {
 						rightVal = baseGrid[row][col + 1];
-					} catch (Exception e) {
+					} catch (Exception IndexOutOfBoundsException) {
 						rightVal = baseGrid[row][col];
 					}
 					try {
 						bottomVal = baseGrid[row + 1][col];
-					} catch (Exception e) {
+					} catch (Exception IndexOutOfBoundsException) {
 						bottomVal = baseGrid[row][col];
 					}
 
@@ -126,8 +127,9 @@ public class GridMonitor implements GridMonitorInterface {
 			}
 
 		} catch (Exception e) {
-			System.out.println("Something went wrong!");
+			System.out.println("Error:" + e);
 		}
+		
 
 	}
 
@@ -140,12 +142,14 @@ public class GridMonitor implements GridMonitorInterface {
 	 * @return grid containing the sum of adjacent positions
 	 */
 	public double[][] getBaseGrid() {
-		return this.baseGrid;
+		
+		return baseGrid;
 
 	}
 
 	public double[][] getSurroundingSumGrid() {
-		return this.gridOfAverageAdjacentPositions;
+		
+		return gridOfAverageAdjacentPositions;
 	}
 
 	/**
@@ -156,7 +160,7 @@ public class GridMonitor implements GridMonitorInterface {
 	 * @return grid containing the average of adjacent positions
 	 */
 	public double[][] getSurroundingAvgGrid() {
-		return this.gridOfAverageAdjacentPositions;
+		return gridOfAverageAdjacentPositions;
 	}
 
 	/**
@@ -170,7 +174,7 @@ public class GridMonitor implements GridMonitorInterface {
 	 */
 	public double[][] getDeltaGrid() {
 
-		return this.gridOfMaximumDeltaOfAverage;
+		return gridOfMaximumDeltaOfAverage;
 	}
 
 	/**
@@ -203,12 +207,12 @@ public class GridMonitor implements GridMonitorInterface {
 				} else {
 					booleanDangerGrid[row][col] = false;
 				}
-				// this.booleanDangerGrid[row][col] =
+				
 
 			}
 		}
 		// loop through and
-		return this.booleanDangerGrid;
+		return booleanDangerGrid;
 
 	}
 
